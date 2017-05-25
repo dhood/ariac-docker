@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
+set -e
+
 TEAM_NAME=$1
 
-#TODO: get list of trials automatically
-declare -a TRIAL_NAMES=("example_trial1" "example_trial2")
-for TRIAL_NAME in ${TRIAL_NAMES[@]}; do
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+TRIAL_CONFIG_FILES="$DIR"/comp_configs/*
+for TRIAL_CONFIG_FILE in ${TRIAL_CONFIG_FILES}; do
+  TRIAL_NAME=${TRIAL_CONFIG_FILE%.*}
   echo "Running trial: ${TRIAL_NAME}"
   #TODO: GET THIS TO RUN THE INDIVIDUAL TRIALS CORRECTLY.
   ./run_trial.bash ${TEAM_NAME} ${TRIAL_NAME}
